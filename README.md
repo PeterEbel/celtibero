@@ -1,6 +1,6 @@
 # celtibero
 
-I wrote this programme for my uncle Luis Alberto de la Fuente, a very ambitious historian and expert on Spanish history with a particular focus on the pre-Roman period of the Iberians and Celtiberians.
+I wrote this program for my uncle Luis Alberto de la Fuente, a very ambitious historian and expert on Spanish history with a particular focus on the pre-Roman period of the Iberians and Celtiberians.
 
 He has studied this era intensively for many years and has used, among other books, the 17-volume encyclopaedia Paläohispanica for his studies. Luis Alberto catalogued tens of thousands of inscriptions on coins and gravestones found at numerous excavation sites throughout Spain in an Excel spreadsheet, each with references to the respective volume, page and even line in the Palaeo-Hispanica encyclopaedia. For each inscription, it was easy to find where it appeared in the encyclopaedia. Unfortunately, one day my uncle mistakenly sorted a single column of the Excel sheet, completely messing up the references to the encyclopaedia and effectively destroying years of work.
 
