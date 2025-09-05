@@ -20,4 +20,4 @@ __Usage:__
 ./pdftext keywords.txt documents.txt results.txt <SomeIntegerNumber>
 ```
 
-<SomeIntegerNumber> is number that is passed as the last argument to define the minimum length a keyword must have in order to be processed. This allows for skipping very short keywords. Passing 3 means that keywords with only one or two characters are skipped.
+`SomeIntegerNumber` is number that is passed as the last argument to define the minimum length a keyword must have in order to be processed. This allows for skipping very short keywords. Passing 3 means that keywords with only one or two characters are skipped.
