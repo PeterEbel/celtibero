@@ -71,7 +71,7 @@ int main(int argc, char *argv[]) {
     std::vector<std::string> begriffe;
     std::ifstream begriffe_file(begriffsdatei);
     if (!begriffe_file) {
-    std::cerr << "Fehler beim Öffnen von begriffe.txt!\n";
+    std::cerr << "Fehler beim Öffnen von keywords.txt!\n";
     return 1;
     }
     std::string line;
@@ -94,7 +94,7 @@ int main(int argc, char *argv[]) {
 
     std::ofstream ergebnisse_file(ergebnis_datei);
     if (!ergebnisse_file) {
-        std::cerr << "Fehler beim Öffnen von ergebnisse.txt!\n";
+        std::cerr << "Fehler beim Öffnen von results.txt!\n";
         return 1;
     }
 
