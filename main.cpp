@@ -44,7 +44,6 @@ int main(int argc, char *argv[]) {
     // PDF-Dateinamen aus Datei einlesen
     struct PdfInfo {
         std::string filename;
-        int start_page;
     };
     std::vector<PdfInfo> pdf_files;
     std::ifstream pdf_filelist(pdflist_datei);
@@ -59,11 +58,11 @@ int main(int argc, char *argv[]) {
             // Zeile überspringen, wenn sie mit # beginnt
             if (pdf_line[0] == '#') continue;
             size_t sep = pdf_line.find(';');
+            std::string fname = pdf_line;
             if (sep != std::string::npos) {
-                std::string fname = pdf_line.substr(0, sep);
-                int start = std::stoi(pdf_line.substr(sep + 1));
-                pdf_files.push_back({fname, start});
+                fname = pdf_line.substr(0, sep);
             }
+            pdf_files.push_back({fname});
         }
     }
     pdf_filelist.close();
