@@ -11,13 +11,13 @@ The program requires the Poppler library for processing PDFs.
 __Compilation__:
 
 ```bash
-g++ main.cpp -o pdftext -std=c++17 -lpoppler-cpp
+g++ main.cpp -o celtibero -std=c++17 -lpoppler-cpp
 ```
 
 __Usage:__
 
 ```bash
-./pdftext keywords.txt documents.txt results.txt <SomeIntegerNumber>
+./celtibero keywords.txt documents.txt results.txt <SomeIntegerNumber>
 ```
 
 `SomeIntegerNumber` is a number that is passed as the last argument to define the minimum length a keyword must have in order to be processed. This allows for skipping very short keywords. Passing 3 means that keywords with only one or two characters are skipped.
