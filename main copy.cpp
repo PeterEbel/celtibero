@@ -30,7 +30,7 @@ std::string to_lower(const std::string& str) {
 }
 
 int main(int argc, char *argv[]) {
-    // std::ofstream debug_file("debug.txt");
+    std::ofstream debug_file("debug.txt");
     if (argc != 5) {
         std::cout << "Usage: " << argv[0] << " <Begriffsdatei> <PDF-Liste> <Ergebnisdatei> <MinLaenge>\n";
         return 1;
@@ -113,35 +113,8 @@ int main(int argc, char *argv[]) {
             if (!p) continue;
             std::vector<char> text_vec = p->text().to_utf8();
             std::string text(text_vec.begin(), text_vec.end());
-            // Debug-Ausgaben entfernt
-
-            // Suche von unten nach oben die letzte Zeile mit einer Ziffer
-            std::vector<std::string> alle_zeilen;
-            std::istringstream iss_alle(text);
-            std::string zeile_scan;
-            while (std::getline(iss_alle, zeile_scan)) {
-                if (!zeile_scan.empty() && zeile_scan.find_first_of("0123456789") != std::string::npos) {
-                    alle_zeilen.push_back(zeile_scan);
-                }
-            }
-            std::string seitenzeile = alle_zeilen.empty() ? "" : alle_zeilen.back();
-            // Debug: Schreibe die gefundene Zeile mit Ziffern
-            // debug_file << filename.filename << ";" << (i+1) << ";" << seitenzeile << "\n";
-            // Unterscheide zwischen geraden und ungeraden Seiten
-            std::string seitenzahl = "XXX";
-            std::smatch match;
-            if (((i+1) % 2) == 0) {
-                // Gerade Seite: Zahl am Anfang (links)
-                if (std::regex_search(seitenzeile, match, std::regex(R"(^\s*(\d{1,4})\b)"))) {
-                    seitenzahl = match[1];
-                }
-            } else {
-                // Ungerade Seite: Zahl am Ende (rechts)
-                if (std::regex_search(seitenzeile, match, std::regex(R"((\d{1,4})\s*$)"))) {
-                    seitenzahl = match[1];
-                }
-            }
-
+            // Debug: Schreibe die ersten 10 Zeichen der Seite in debug.txt
+            debug_file << filename.filename << ";" << (i+1) << ";" << text.substr(0, 10) << "\n";
             std::istringstream iss(text);
             std::string zeile;
             int zeilennummer = 0;
@@ -158,7 +131,8 @@ int main(int argc, char *argv[]) {
                         bool left_ok = (start == 0) || !is_word_char(zeile[start - 1]);
                         bool right_ok = (end == (int)zeile.size()) || !is_word_char(zeile[end]);
                         if (left_ok && right_ok) {
-                            ergebnisse_file << word << ";" << filename.filename << ";" << seitenzahl << ";" << zeilennummer << "\n";
+                            int referenz_seite = filename.start_page + i;
+                            ergebnisse_file << word << ";" << filename.filename << ";" << referenz_seite << ";" << zeilennummer << "\n";
                         }
                     });
                 }
@@ -168,6 +142,6 @@ int main(int argc, char *argv[]) {
         delete doc;
     }
     ergebnisse_file.close();
-    // debug_file.close();
+    debug_file.close();
     return 0;
 }
