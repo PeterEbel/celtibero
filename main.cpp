@@ -22,10 +22,7 @@ int main(int argc, char *argv[]) {
     int min_len = std::stoi(argv[4]);
 
     // PDF-Dateinamen aus Datei einlesen
-    struct PdfInfo {
-        std::string filename;
-    };
-    std::vector<PdfInfo> pdf_files;
+    std::vector<std::string> pdf_files;
     std::ifstream pdf_filelist(pdflist_datei);
     if (!pdf_filelist) {
         std::cerr << "Fehler beim Öffnen der PDF-Liste!\n";
@@ -42,7 +39,7 @@ int main(int argc, char *argv[]) {
             if (sep != std::string::npos) {
                 fname = pdf_line.substr(0, sep);
             }
-            pdf_files.push_back({fname});
+            pdf_files.push_back(fname);
         }
     }
     pdf_filelist.close();
@@ -80,13 +77,13 @@ int main(int argc, char *argv[]) {
 
     // Alle PDFs aus der Liste durchsuchen
     for (const auto& filename : pdf_files) {
-        poppler::document *doc = poppler::document::load_from_file(filename.filename);
+        poppler::document *doc = poppler::document::load_from_file(filename);
         if (!doc) {
-            std::cerr << "Fehler beim Laden der PDF-Datei: " << filename.filename << "\n";
+            std::cerr << "Fehler beim Laden der PDF-Datei: " << filename << "\n";
             continue;
         }
         int num_pages = doc->pages();
-        std::cout << "Suche in " << filename.filename << " (Seiten: " << num_pages << ")\n";
+        std::cout << "Suche in " << filename << " (Seiten: " << num_pages << ")\n";
         for (int i = 0; i < num_pages; ++i) {
             poppler::page *p = doc->create_page(i);
             if (!p) continue;
@@ -135,7 +132,7 @@ int main(int argc, char *argv[]) {
                         bool left_ok = (start == 0) || !is_word_char(zeile[start - 1]);
                         bool right_ok = (end == (int)zeile.size()) || !is_word_char(zeile[end]);
                         if (left_ok && right_ok) {
-                            ergebnisse_file << word << ";" << filename.filename << ";" << seitenzahl << ";" << zeilennummer << "\n";
+                            ergebnisse_file << word << ";" << filename << ";" << seitenzahl << ";" << zeilennummer << "\n";
                         }
                     });
                 }
