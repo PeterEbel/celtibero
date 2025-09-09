@@ -5,32 +5,12 @@
 #include <poppler/cpp/poppler-page.h>
 #include <fstream>
 #include <sstream>
-#include <algorithm>
 #include <regex>
 #include "aho_corasick.hpp"
 
-std::string escape_regex(const std::string& s) {
-    // Alle Regex-Sonderzeichen escapen
-    static const std::string special = R"([\^$.|?*+(){}'])";
-    std::string result;
-    for (char c : s) {
-        if (special.find(c) != std::string::npos) {
-            result += '\\';
-        }
-        result += c;
-    }
-    return result;
-}
-
-// Hilfsfunktion: String in Kleinbuchstaben umwandeln
-std::string to_lower(const std::string& str) {
-    std::string lower = str;
-    std::transform(lower.begin(), lower.end(), lower.begin(), ::tolower);
-    return lower;
-}
 
 int main(int argc, char *argv[]) {
-    // std::ofstream debug_file("debug.txt");
+    // ...existing code...
     if (argc != 5) {
         std::cout << "Usage: " << argv[0] << " <Begriffsdatei> <PDF-Liste> <Ergebnisdatei> <MinLaenge>\n";
         return 1;
@@ -112,7 +92,6 @@ int main(int argc, char *argv[]) {
             if (!p) continue;
             std::vector<char> text_vec = p->text().to_utf8();
             std::string text(text_vec.begin(), text_vec.end());
-            // Debug-Ausgaben entfernt
 
             // Suche von unten nach oben die letzte Zeile mit einer Ziffer
             std::vector<std::string> alle_zeilen;
@@ -124,8 +103,7 @@ int main(int argc, char *argv[]) {
                 }
             }
             std::string seitenzeile = alle_zeilen.empty() ? "" : alle_zeilen.back();
-            // Debug: Schreibe die gefundene Zeile mit Ziffern
-            // debug_file << filename.filename << ";" << (i+1) << ";" << seitenzeile << "\n";
+            // ...existing code...
             // Unterscheide zwischen geraden und ungeraden Seiten
             std::string seitenzahl = "XXX";
             std::smatch match;
@@ -167,6 +145,5 @@ int main(int argc, char *argv[]) {
         delete doc;
     }
     ergebnisse_file.close();
-    // debug_file.close();
     return 0;
 }
