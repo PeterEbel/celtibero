@@ -10,7 +10,6 @@
 
 
 int main(int argc, char *argv[]) {
-    // ...existing code...
     if (argc != 5) {
         std::cout << "Usage: " << argv[0] << " <Begriffsdatei> <PDF-Liste> <Ergebnisdatei> <MinLaenge>\n";
         return 1;
