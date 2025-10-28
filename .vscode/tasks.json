@@ -1,0 +1,83 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build (make)",
+            "type": "shell",
+            "command": "make",
+            "args": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
+            },
+            "problemMatcher": ["$gcc"],
+            "detail": "Kompiliert das Celtibero-Programm mit make"
+        },
+        {
+            "label": "Build Debug (make debug)",
+            "type": "shell",
+            "command": "make",
+            "args": ["debug"],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": ["$gcc"],
+            "detail": "Kompiliert das Celtibero-Programm im Debug-Modus"
+        },
+        {
+            "label": "Clean (make clean)",
+            "type": "shell",
+            "command": "make",
+            "args": ["clean"],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "detail": "Entfernt alle kompilierten Dateien"
+        },
+        {
+            "label": "Run Program (make run)",
+            "type": "shell",
+            "command": "make",
+            "args": ["run"],
+            "group": "test",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                "panel": "shared"
+            },
+            "dependsOn": "Build (make)",
+            "detail": "Führt das Celtibero-Programm aus (kompiliert automatisch falls nötig)"
+        },
+        {
+            "label": "Check Dependencies (make check)",
+            "type": "shell",
+            "command": "make",
+            "args": ["check"],
+            "group": "test",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "detail": "Überprüft ob alle benötigten Dateien und Abhängigkeiten vorhanden sind"
+        }
+    ]
+}
